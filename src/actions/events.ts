@@ -13,14 +13,9 @@ export const getAllEventsForProfile = defineAction({
   input: z.object({
     email: z.string(),
   }),
-  handler: async (input,context) => {
-    console.log('HIIIII 2222');
-
+  handler: async (input, context) => {
     try {
       const session = await getSession(context.request);
-      console.log('hii');
-
-      console.log('Session:', session);
 
       if (!session?.user?.id) {
         throw new ActionError({
@@ -37,10 +32,13 @@ export const getAllEventsForProfile = defineAction({
         .innerJoin(teamTable, eq(teamTable.id, userTeamTable.teamId))
         .innerJoin(eventTable, eq(eventTable.id, teamTable.eventId))
         .where(eq(userTeamTable.userId, session.user.id));
-      console.log('Events', events);
+
       return events;
     } catch (error) {
-      console.error(error);
+      throw new ActionError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'something went wrong',
+      });
     }
   },
 });

@@ -44,15 +44,15 @@ export const uploadToGallery = defineAction({
         });
       } else {
         try {
-          console.log('SUOP');
-
-          const response = await uploadImageToCloudinaryFromServer(image as File, {folder: 'gallery'});
-          console.log(response);
+          await uploadImageToCloudinaryFromServer(image as File, { folder: 'gallery' });
           return {
             message: 'Successfully uploaded images to gallery',
           };
         } catch (error) {
-          console.error(error);
+          throw new ActionError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'something went wrong',
+          });
         }
       }
     } else {
@@ -63,4 +63,3 @@ export const uploadToGallery = defineAction({
     }
   },
 });
-

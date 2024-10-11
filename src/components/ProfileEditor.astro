@@ -121,7 +121,7 @@ const { name, email, github, linkedIn, instagram } = Astro.props;
 
     (submitButton as HTMLButtonElement).disabled = true;
     if (submitButton) {
-      submitButton.textContent = 'Loading...';
+      submitButton.textContent = 'Updating...';
     }
 
     const { error } = await actions.editProfile(formData);
@@ -131,8 +131,6 @@ const { name, email, github, linkedIn, instagram } = Astro.props;
     }
 
     if (error) {
-      console.error(error);
-
       toast.error('Failed to update!');
     } else {
       // toast.success('Updated successfully');

@@ -48,8 +48,6 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Team creation failed' }), { status: 200 });
     }
 
-    console.log('NOt done yet');
-
     // Add the user as a member of the newly created team
     const res = await db
       .insert(userTeamTable)

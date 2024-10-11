@@ -19,7 +19,6 @@ export const editProfile = defineAction({
     linkedIn: z.string().optional(),
   }),
   handler: async ({ name, email, instagram, github, linkedIn }) => {
-    console.log(name, email, github);
     try {
       const userProfile = await db
         .update(userTable)
@@ -32,7 +31,6 @@ export const editProfile = defineAction({
         })
         .where(eq(userTable.email, email))
         .returning({ id: userTable.id });
-      console.log(userProfile);
 
       if (!userProfile.length) {
         throw new ActionError({
@@ -44,7 +42,10 @@ export const editProfile = defineAction({
         user_id: userProfile[0].id,
       };
     } catch (error) {
-      console.error(error);
+      throw new ActionError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'could not update profile info',
+      });
     }
   },
 });
@@ -90,7 +91,10 @@ export const updateProfilePic = defineAction({
         }
       }
     } catch (error) {
-      console.error(error);
+      throw new ActionError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'could not update profile info',
+      });
     }
   },
 });

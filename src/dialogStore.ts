@@ -65,7 +65,5 @@ export const completedEvents = atom<Event[]>([]);
 
 export const setTeamData = (data: TeamDetails | null) => {
   const $teamData = teamData;
-  console.log('Setting team data', data);
-
   $teamData.set(data);
 };

@@ -94,12 +94,13 @@ import { navigate } from 'astro:transitions/client';
   async function handleEditUser() {
     const formData = new FormData();
     if (!inputFile.files || !changed) {
+      toast.warning("image not changed");
       return;
     }
 
     if (updateButton) {
       updateButton.disabled = true;
-      updateButton.textContent = 'Loading...';
+      updateButton.textContent = 'updating...';
     }
 
     formData.append('image', inputFile.files[0]);
@@ -108,7 +109,7 @@ import { navigate } from 'astro:transitions/client';
 
     if (updateButton) {
       updateButton.disabled = false;
-      updateButton.textContent = 'Edit User';
+      updateButton.textContent = 'Update';
     }
 
     if (error) {
