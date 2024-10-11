@@ -27,14 +27,10 @@ const JoinTeam: FunctionComponent<JoinTeamProps> = ({ eventId, onGoBack, onJoinT
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log('Error', response);
-
         toast.error('Error', errorData);
-        console.log('Failed to join team');
       } else {
         onJoinTeam();
         const res = await response.json();

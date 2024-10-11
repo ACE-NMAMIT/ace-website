@@ -12,8 +12,6 @@ const joinTeamZ = z.object({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  console.log('Hi');
-
   try {
     const input = await request.json();
     console.log(input);
